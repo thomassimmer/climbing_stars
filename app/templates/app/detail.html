@@ -1,0 +1,111 @@
+{% extends 'app/base.html' %}
+
+{% block content %}
+
+    <!-- Top images -->
+    <br>
+    {% if images %}
+        <img id='main-image' src="{{ images.0.image.url }}">
+
+        <div class="container g-0">
+            <div class="row g-0">
+                {% for image in images %}
+                    <div class="col-auto">
+                        <img class="thumbnail" src="{{ image.image.url }}">
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+    <br>
+
+    <!-- Path's description -->
+    <div class="container g-0">
+        <div class="row">
+            <div class="col-auto me-auto bold">
+                <div class="label">Nom de voie : {{ path.name }}</div>
+            </div>
+            <div class="col-auto bold">
+                <div class="label">Note : {{ path.note }}/10</div>
+            </div>
+        </div>
+    </div>
+    <br>
+
+    <p>Description : {{ path.description }}</p>
+
+    <br>
+    <br>
+
+    <!-- Comments -->
+    {% if comments %}
+        <b>Commentaires :</b><br><br>
+        {% for comment in comments %}
+            <div class="container g-0">
+                <div class="row">
+                    <div class="col-auto me-auto">
+                        <div class="label">Auteur : {{ comment.author }}</div>
+                    </div>
+                    <div class="col-auto">
+                        <div class="label">Note : {{ comment.note }}/10</div>
+                    </div>
+                </div>
+            </div>
+            <br>
+            {{ comment.comment }}
+            <br>
+            <br>
+        {% endfor %}
+    {% endif %}
+
+    <br>
+    <br>
+
+    <!-- Form to add a new comment -->
+    <form method="post" class="row g-3 needs-validation" novalidate>
+        {% csrf_token %}
+        <div class="col-md-8">
+            <label for="author" class="form-label bold p-3">{{ form.author.label }}</label>
+            {{ form.author }}
+            <div class="error">{{ form.author.errors }}</div>
+        </div>
+        <div class="col-md-4">
+            <label for="noteInput" class="form-label bold p-3">{{ form.note.label }}</label>
+            {{ form.note }}
+            <siv class="error">{{ form.note.errors }}
+        </div>
+        </div>
+        <div class="col-md-12">
+            <label for="comment" class="form-label bold p-3">{{ form.comment.label }}</label>
+            {{ form.comment }}
+            <div class="error">{{ form.comment.errors }}</div>
+        </div>
+        </div>
+        <br>
+        <br>
+        <div class="container g-0">
+            <div class="row">
+                <div class="col-auto me-auto">
+                    <a class="btn btn-outline-secondary btn-validate btn-lg btn-round custom-shadow"
+                        href="{% url 'app:index' %}" role="button">HOME</a>
+                </div>
+                <div class="col-auto">
+                    <input type="submit" value="ENVOYER LE COMMENTAIRE"
+                        class="btn btn-outline-secondary btn-validate btn-lg btn-round custom-shadow">
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <br>
+    <br>
+
+    {% if error_message %}
+    <br>
+    Error : {{ error_message }}
+    {% endif %}
+
+    {% load static %}
+    <script type="text/javascript" src="{% static 'app/carousel.js' %}"></script>
+
+{% endblock %}

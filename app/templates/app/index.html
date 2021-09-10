@@ -1,0 +1,40 @@
+{% extends 'app/base.html' %}
+
+{% block content %}
+    <br>
+    {% if paths %}
+        <div class="container">
+            <div class="row row-cols-3">
+                {% for path in paths %}
+                    <div class="col">
+                        <div class="card custom-shadow mb-5 bg-white rounded">
+                            {% if path.image %}
+                                <img src="{{ path.image.image.url }}" class="card-img-top" alt="...">
+                            {% endif %}
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-auto me-auto bold">
+                                        <div class="label">nom de voie : {{ path.name }}</div>
+                                    </div>
+                                    <div class="col-auto bold">
+                                        <div class="label">note : {{ path.note }}/10</div>
+                                    </div>
+                                </div>
+                                <br>
+                                <p class="card-text">Description : {{ path.description }}</p>
+                            </div>
+                            <a class="stretched-link" href="{% url 'app:detail' path.id %}"></a>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% else %}
+        <p>No paths are available.</p>
+    {% endif %}
+
+    <div class="right">
+        <a role="button" class="btn btn-outline-secondary btn-validate btn-lg btn-round custom-shadow"
+            href="{% url 'app:new_path' %}">AJOUTER UNE VOIE</a>
+    </div>
+{% endblock %}

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+
+<head>
+    {% load static %}
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{% static 'app/style.css' %}">
+    <title>Climbing stars</title>
+</head>
+
+<body>
+    <header class="page-header">
+        <div class="container">
+            <h1><a href="{% url 'app:index' %}" id='title'>CLIMBING STARS</a></h1>
+        </div>
+    </header>
+    <main class="container">
+        {% block content %}
+        {% endblock %}
+        <br>
+        <br>
+        <br>
+    </main>
+</body>

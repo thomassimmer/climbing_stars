@@ -1,0 +1,54 @@
+{% extends 'app/base.html' %}
+
+{% block content %}
+
+    <br>
+    <br>
+    <br>
+
+    <form method="post" class="row g-3 needs-validation" enctype="multipart/form-data" novalidate>
+        {% csrf_token %}
+        <div class="col-md-12">
+            <label for="pathName" class="form-label bold p-3">{{ form.name.label }}</label>
+            {{ form.name }}
+            <div class="error">{{ form.name.errors }}</div>
+        </div>
+        <div class="col-md-12">
+            <label for="description" class="form-label bold p-3">{{ form.description.label }}</label>
+            {{ form.description }}
+            <div class="error">{{ form.description.errors }}</div>
+        </div>
+        <div class="col-md-12">
+            {{ form.images }}
+            <label for="imageUploader" id="labelImageUpload"
+                class="btn btn-outline-secondary btn-validate btn-lg btn-round custom-shadow upload-image">{{
+                form.images.label }}</label>
+            <br>
+            <br>
+            <div class="error">{{ form.images.errors }}</div>
+            <br>
+            <p class="discreet-text">vous pouvez uploader une ou plusieurs photos</p>
+        </div>
+        <br>
+        <br>
+        <div class="row justify-content-center">
+            <div class="col-auto">
+                <a class="btn btn-outline-secondary btn-validate btn-lg btn-round custom-shadow"
+                    href="{% url 'app:index' %}" role="button">ANNULER</a>
+            </div>
+            <div class="col-auto">
+                <input type="submit" value="VALIDER"
+                    class="btn btn-outline-secondary btn-validate btn-lg btn-round custom-shadow">
+            </div>
+        </div>
+    </form>
+
+
+    {% if error_message %}
+        <br>
+        Error : {{ error_message }}
+    {% endif %}
+
+    {% load static %}
+    <script type="text/javascript" src="{% static 'app/new_path.js' %}"></script>
+{% endblock %}
