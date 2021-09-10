@@ -38,7 +38,7 @@ class PathFormWithImages(PathForm):
     class Meta(PathForm.Meta):
         fields = PathForm.Meta.fields + ['images',]
     
-    images = forms.FileField(label='SELECTIONNER UNE / DES PHOTOS *:', widget=forms.ClearableFileInput(
+    images = forms.FileField(label='SELECTIONNER UNE / DES PHOTOS', widget=forms.ClearableFileInput(
         attrs={"class": "hide-input-file", "id": "imageUploader", "rows": 3, "multiple": True}),
         error_messages={
             "required": "Une image est requise.",

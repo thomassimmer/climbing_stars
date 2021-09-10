@@ -44,8 +44,8 @@ def detail(request, path_id):
 
         if form.is_valid():
             form.save()
+            return HttpResponseRedirect(reverse('app:detail', kwargs={'path_id': path.id}))
 
-        return HttpResponseRedirect(reverse('app:detail', kwargs={'path_id': path.id}))
 
     else:
         form = CommentForm()
@@ -92,5 +92,8 @@ def avg_note(comments):
         avg = 0
         for comment in comments:
             avg += comment.note
-        return round(avg / len(comments), 1)
+        avg = round(avg / len(comments), 1)
+        if avg.is_integer(): 
+            return str(int(avg))
+        return str(avg).replace('.',',')
     return '?'
